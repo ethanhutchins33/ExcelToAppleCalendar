@@ -4,19 +4,21 @@ using Ical.Net.Serialization;
 
 const string excelFilePath = "./DataFiles/Yeovil.xlsx";
 
+// Get the data from the excel file
 var data = ExcelDataReader.GetData(excelFilePath);
 
+// Print the data to the console
 foreach (var rawData in data)
 {
     Console.WriteLine($"{rawData.Team} {rawData.YearMonth} {rawData.WeekCommencing} {rawData.DayOfWeek} {rawData.StartTime} {rawData.Postcode}");
 }
 
+// Create the calendar
 var eventCreator = new CalendarEventCreator();
-
 var calendar = new Calendar();
 var events = eventCreator.CreateEvents(data);
 
-// Add the event to the calendar
+// Add the events to the calendar
 foreach (var ttEvent in events)
 {
     calendar.Events.Add(ttEvent);
