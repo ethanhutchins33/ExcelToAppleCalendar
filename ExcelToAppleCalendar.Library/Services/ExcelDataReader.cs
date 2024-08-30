@@ -22,14 +22,13 @@ public class ExcelDataReader : IExcelDataReader
 
         for (var i = 2; i < 13; i++)
         {
-            DayOfWeek day;
             MatchEvent matchEvent = new()
             {
                 YearMonth = worksheet.Cells[i, 1].Text,
                 WeekCommencing =
                     int.Parse(worksheet.Cells[i, 2].Text
                         .Remove(worksheet.Cells[i, 2].Text.Length - 2)),
-                DayOfWeek = Enum.TryParse(worksheet.Cells[i, 3].Text, true, out day)
+                DayOfWeek = Enum.TryParse(worksheet.Cells[i, 3].Text, true, out DayOfWeek day)
                     ? day
                     : DayOfWeek.Sunday,
                 StartTime = TimeOnly.Parse(worksheet.Cells[i, 4].Text),
