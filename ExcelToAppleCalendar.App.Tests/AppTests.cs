@@ -25,7 +25,7 @@ public class AppTests
             .Returns(testConfiguration);
 
         _app = new App(calendarService, excelDataReader,
-            configuration, logger);
+            configuration);
     }
 
     [Test]

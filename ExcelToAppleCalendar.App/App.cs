@@ -7,14 +7,13 @@ namespace ExcelToAppleCalendar.App;
 public class App(
     ICalendarService calendarService,
     IExcelDataReader excelDataReader,
-    IConfiguration configuration,
-    ILogger<App> logger)
+    IConfiguration configuration)
 {
     public void Run()
     {
-        logger.LogInformation("App Started");
+        Console.WriteLine("App Started");
 
-        logger.LogInformation("Reading app configuration");
+        Console.WriteLine("Reading app configuration");
         var appSettings =
             configuration.GetSection("AppSettings").Get<IAppConfiguration>();
 
@@ -24,10 +23,10 @@ public class App(
         ArgumentException.ThrowIfNullOrEmpty(appSettings.OutputFilePath,
             nameof(appSettings.OutputFilePath));
 
-        logger.LogInformation("Configuration loaded");
+        Console.WriteLine("Configuration loaded");
 
         // Get the data from the Excel file
-        logger.LogInformation("Reading Excel file");
+        Console.WriteLine("Reading Excel file");
         var matchEvents = excelDataReader.GetMatchEvents(appSettings.InputFilePath);
 
         // Print the data to the console
