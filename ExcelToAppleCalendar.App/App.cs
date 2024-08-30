@@ -15,7 +15,7 @@ public class App(
 
         Console.WriteLine("Reading app configuration");
         var appSettings =
-            configuration.GetSection("AppSettings").Get<IAppConfiguration>();
+            configuration.GetSection("AppSettings").Get<AppConfiguration>();
 
         ArgumentNullException.ThrowIfNull(appSettings, nameof(appSettings));
         ArgumentException.ThrowIfNullOrEmpty(appSettings.InputFilePath,

@@ -18,9 +18,12 @@ public class ExcelDataReader : IExcelDataReader
 
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         using var package = new ExcelPackage(file);
-        var worksheet = package.Workbook.Worksheets["Fixtures"];
+        var worksheet = package.Workbook.Worksheets.First();
 
-        for (var i = 2; i < 13; i++)
+        var rowCount = worksheet.Rows.Count();
+        Console.WriteLine($"Row Count: {rowCount}");
+
+        for (var i = 2; i <= rowCount; i++)
         {
             MatchEvent matchEvent = new()
             {
@@ -40,4 +43,14 @@ public class ExcelDataReader : IExcelDataReader
             yield return matchEvent;
         }
     }
+
+    // private int GetRowsWithDataCount(ExcelWorksheet worksheet)
+    // {
+    //     int count;
+    //     foreach (var worksheetRow in worksheet.Rows)
+    //     {
+    //         if(worksheetRow.)
+    //         count += 1;
+    //     }
+    // }
 }
