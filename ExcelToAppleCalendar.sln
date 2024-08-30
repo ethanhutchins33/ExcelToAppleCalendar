@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelToAppleCalendar.App", "ExcelToAppleCalendar.App\ExcelToAppleCalendar.App.csproj", "{F938450E-18F2-47AA-BA00-0C769BD8FA0E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelToAppleCalendar.Library", "ExcelToAppleCalendar.Library\ExcelToAppleCalendar.Library.csproj", "{E48050BC-5749-402D-B9EC-16722130F6BF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelToAppleCalendar.App.Tests", "ExcelToAppleCalendar.App.Tests\ExcelToAppleCalendar.App.Tests.csproj", "{8B66E0C6-900E-47D4-A4E3-E91645E29732}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelToAppleCalendar.Library.Tests", "ExcelToAppleCalendar.Library.Tests\ExcelToAppleCalendar.Library.Tests.csproj", "{6E9F1F38-B1E9-4436-A236-2EA2109F492C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExcelToAppleCalendar.App", "ExcelToAppleCalendar.App\ExcelToAppleCalendar.App.csproj", "{028C7E08-71FD-4078-8F26-052A72D07834}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,10 +14,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F938450E-18F2-47AA-BA00-0C769BD8FA0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F938450E-18F2-47AA-BA00-0C769BD8FA0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F938450E-18F2-47AA-BA00-0C769BD8FA0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F938450E-18F2-47AA-BA00-0C769BD8FA0E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E48050BC-5749-402D-B9EC-16722130F6BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E48050BC-5749-402D-B9EC-16722130F6BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E48050BC-5749-402D-B9EC-16722130F6BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -30,5 +26,9 @@ Global
 		{6E9F1F38-B1E9-4436-A236-2EA2109F492C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E9F1F38-B1E9-4436-A236-2EA2109F492C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E9F1F38-B1E9-4436-A236-2EA2109F492C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{028C7E08-71FD-4078-8F26-052A72D07834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{028C7E08-71FD-4078-8F26-052A72D07834}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{028C7E08-71FD-4078-8F26-052A72D07834}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{028C7E08-71FD-4078-8F26-052A72D07834}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

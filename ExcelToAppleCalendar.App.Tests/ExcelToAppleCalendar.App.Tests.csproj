@@ -30,7 +30,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\ExcelToAppleCalendar.App\ExcelToAppleCalendar.App.csproj"/>
+      <ProjectReference Include="..\ExcelToAppleCalendar.App\ExcelToAppleCalendar.App.csproj" />
     </ItemGroup>
 
 </Project>
