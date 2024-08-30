@@ -33,4 +33,10 @@
         <ProjectReference Include="..\ExcelToAppleCalendar.Library\ExcelToAppleCalendar.Library.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="DataFiles\TestFile.xlsx">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>
