@@ -1,11 +1,12 @@
-using ExcelToAppleCalendarApp.Models;
+using ExcelToAppleCalendar.Library.Interfaces;
+using ExcelToAppleCalendar.Library.Models;
 using OfficeOpenXml;
 
-namespace ExcelToAppleCalendarApp;
+namespace ExcelToAppleCalendar.Library.Services;
 
-public static class ExcelDataReader
+public class ExcelDataReader : IExcelDataReader
 {
-    public static IEnumerable<RowEventDto> GetData(string filePath)
+    public IEnumerable<MatchEvent> GetMatchEvents(string filePath)
     {
         var file = new FileInfo(filePath);
 
@@ -22,12 +23,13 @@ public static class ExcelDataReader
         for (var i = 2; i < 13; i++)
         {
             DayOfWeek day;
-            RowEventDto rowEventDto = new()
+            MatchEvent matchEvent = new()
             {
                 YearMonth = worksheet.Cells[i, 1].Text,
                 WeekCommencing =
-                    int.Parse(worksheet.Cells[i, 2].Text.Remove(worksheet.Cells[i, 2].Text.Length - 2)),
-                DayOfWeek = DayOfWeek.TryParse(worksheet.Cells[i, 3].Text, true, out day)
+                    int.Parse(worksheet.Cells[i, 2].Text
+                        .Remove(worksheet.Cells[i, 2].Text.Length - 2)),
+                DayOfWeek = Enum.TryParse(worksheet.Cells[i, 3].Text, true, out day)
                     ? day
                     : DayOfWeek.Sunday,
                 StartTime = TimeOnly.Parse(worksheet.Cells[i, 4].Text),
@@ -36,7 +38,7 @@ public static class ExcelDataReader
                 Postcode = worksheet.Cells[i, 7].Text
             };
 
-            yield return rowEventDto;
+            yield return matchEvent;
         }
     }
 }

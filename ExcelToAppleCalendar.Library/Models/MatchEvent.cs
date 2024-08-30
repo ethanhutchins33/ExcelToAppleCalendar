@@ -1,6 +1,6 @@
-namespace ExcelToAppleCalendarApp.Models;
+namespace ExcelToAppleCalendar.Library.Models;
 
-public class RowEventDto
+public class MatchEvent
 {
     public string? YearMonth { get; set; }
     public int WeekCommencing { get; set; }
@@ -9,4 +9,5 @@ public class RowEventDto
     public string? Team { get; set; }
     public bool Home { get; set; }
     public string? Postcode { get; set; }
+    public string? Address { get; set; }
 }
