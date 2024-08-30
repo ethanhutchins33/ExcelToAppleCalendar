@@ -17,7 +17,6 @@ public class AppTests
         IAppConfiguration testConfiguration = new TestConfiguration();
         var configurationSection = A.Fake<IConfigurationSection>();
         var configuration = A.Fake<IConfiguration>();
-        var logger = A.Fake<ILogger<App>>();
 
         A.CallTo(() => configuration.GetSection("AppSettings"))
             .Returns(configurationSection);
