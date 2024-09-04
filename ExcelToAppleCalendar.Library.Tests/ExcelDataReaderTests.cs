@@ -1,4 +1,3 @@
-using ExcelToAppleCalendar.Library.Interfaces;
 using ExcelToAppleCalendar.Library.Services;
 using FluentAssertions;
 
@@ -6,8 +5,8 @@ namespace ExcelToAppleCalendar.Library.Tests;
 
 public class ExcelDataReaderTests
 {
-    private IExcelDataReader _excelDataReader;
-    const string ExcelFilePath = "./DataFiles/TestFile.xlsx";
+    private ExcelDataReader _excelDataReader;
+    private const string ExcelFilePath = "./DataFiles/TestFile.xlsx";
 
     [SetUp]
     public void Setup()

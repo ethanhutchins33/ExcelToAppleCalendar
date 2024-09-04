@@ -1,7 +1,6 @@
 using ExcelToAppleCalendar.Library.Interfaces;
 using FakeItEasy;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace ExcelToAppleCalendar.App.Tests;
 

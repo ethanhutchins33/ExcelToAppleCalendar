@@ -1,6 +1,5 @@
 using ExcelToAppleCalendar.Library.Interfaces;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace ExcelToAppleCalendar.App;
 
