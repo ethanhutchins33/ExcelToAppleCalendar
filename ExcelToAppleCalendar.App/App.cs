@@ -26,7 +26,7 @@ public class App(
 
         // Get the data from the Excel file
         Console.WriteLine("Reading Excel file");
-        var matchEvents = excelDataReader.GetMatchEvents(appSettings.InputFilePath);
+        var matchEvents = excelDataReader.GetMatchEvents(appSettings.InputFilePath).ToList();
 
         // Print the data to the console
         foreach (var rawData in matchEvents)
