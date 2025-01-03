@@ -1,3 +1,4 @@
+using System.Globalization;
 using ExcelToAppleCalendar.Library.Interfaces;
 using ExcelToAppleCalendar.Library.Models;
 using OfficeOpenXml;
@@ -25,32 +26,47 @@ public class ExcelDataReader : IExcelDataReader
 
         for (var i = 2; i <= rowCount; i++)
         {
+            Console.WriteLine($"Reading row #{i}");
+
+            // If row data is empty, skip row
+            if (worksheet.Cells[i, 2].Value == null) continue;
+            Console.WriteLine($"Row #{i} data was empty, skipping row...");
+
+            var weekCommencingDate = DateOnly.TryParse(worksheet.Cells[i, 1].Text,
+                CultureInfo.CurrentCulture, out var date)
+                ? date
+                : throw new FormatException();
+            Console.WriteLine($"Week Commencing Date: {weekCommencingDate}");
+
+            var dayOfWeek =
+                Enum.TryParse(worksheet.Cells[i, 2].Text, true, out DayOfWeek day)
+                    ? day
+                    : DayOfWeek.Sunday;
+            Console.WriteLine($"Day of Week: {dayOfWeek}");
+
+            var opponentTeam = worksheet.Cells[i, 3].Text;
+            Console.WriteLine($"Opponent Team: {opponentTeam}");
+
+            var homeOrAway = worksheet.Cells[i, 4].Text == "Home";
+            Console.WriteLine($"At Home?: {homeOrAway}");
+
+            var startTime = TimeOnly.Parse(worksheet.Cells[i, 5].Text);
+            Console.WriteLine($"Start Time: {startTime}");
+
+            var address = worksheet.Cells[i, 6].Text;
+            Console.WriteLine($"Address: {address}");
+
             MatchEvent matchEvent = new()
             {
-                YearMonth = worksheet.Cells[i, 1].Text,
-                WeekCommencing =
-                    int.Parse(worksheet.Cells[i, 2].Text
-                        .Remove(worksheet.Cells[i, 2].Text.Length - 2)),
-                DayOfWeek = Enum.TryParse(worksheet.Cells[i, 3].Text, true, out DayOfWeek day)
-                    ? day
-                    : DayOfWeek.Sunday,
-                StartTime = TimeOnly.Parse(worksheet.Cells[i, 4].Text),
-                Team = worksheet.Cells[i, 5].Text,
-                Home = worksheet.Cells[i, 6].Text == "Home",
-                Postcode = worksheet.Cells[i, 7].Text
+                WeekCommencingDate = weekCommencingDate,
+                DayOfWeek = dayOfWeek,
+                OpponentTeam = opponentTeam,
+                Home = homeOrAway,
+                StartTime = startTime,
+                Address = address
             };
 
             yield return matchEvent;
         }
     }
-
-    // private int GetRowsWithDataCount(ExcelWorksheet worksheet)
-    // {
-    //     int count;
-    //     foreach (var worksheetRow in worksheet.Rows)
-    //     {
-    //         if(worksheetRow.)
-    //         count += 1;
-    //     }
-    // }
 }

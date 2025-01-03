@@ -31,7 +31,7 @@ public class App(
         // Print the data to the console
         foreach (var rawData in matchEvents)
             Console.WriteLine(
-                $"{rawData.Team} {rawData.YearMonth} {rawData.WeekCommencing} {rawData.DayOfWeek} {rawData.StartTime} {rawData.Postcode}");
+                $"{rawData.WeekCommencingDate} {rawData.DayOfWeek} {rawData.OpponentTeam} Home:{rawData.Home} {rawData.StartTime} {rawData.Address}");
 
         // Create the calendar
         var events = calendarService.CreateEvents(matchEvents);

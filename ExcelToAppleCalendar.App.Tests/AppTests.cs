@@ -25,10 +25,4 @@ public class AppTests
         _app = new App(calendarService, excelDataReader,
             configuration);
     }
-
-    [Test]
-    public void App_CalendarService_CalendarIsNotNull()
-    {
-        _app.Run();
-    }
 }

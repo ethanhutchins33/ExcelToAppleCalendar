@@ -9,35 +9,37 @@ public class CalendarServiceTests
 {
     private CalendarService _calendarService;
 
+    private DateOnly _testWcDate;
+    private DayOfWeek _testDayOfWeek;
+    private string _testTeamName = string.Empty;
+    private TimeOnly _testStartTime;
+    private bool _testHome;
+    private string _testAddress = string.Empty;
+
     [SetUp]
     public void Setup()
     {
         _calendarService = new CalendarService();
+
+        _testWcDate = new DateOnly(2024, 01, 01);
+        _testDayOfWeek = DayOfWeek.Tuesday;
+        _testStartTime = new TimeOnly(19, 30, 00);
+        _testTeamName = "Team Name";
+        _testHome = true;
+        _testAddress = "Address";
     }
 
     [Test]
-    public void CalendarService_Creates_Events()
+    public void CalendarService_Creates_Events_With_Correct_Name()
     {
-        const string testYearMonth = "January";
-        const int testWeekCommencing = 1;
-        const DayOfWeek testDayOfWeek = DayOfWeek.Sunday;
-        var testStartTime = new TimeOnly(19, 30, 00);
-        const string testTeam = "Team Name";
-        const bool testHome = true;
-        const string testPostcode = "Postcode";
-        const string testAddress = "Address";
-
-
         var matchEvent = new MatchEvent
         {
-            YearMonth = testYearMonth,
-            WeekCommencing = testWeekCommencing,
-            DayOfWeek = testDayOfWeek,
-            StartTime = testStartTime,
-            Team = testTeam,
-            Home = testHome,
-            Postcode = testPostcode,
-            Address = testAddress
+            WeekCommencingDate = _testWcDate,
+            DayOfWeek = _testDayOfWeek,
+            StartTime = _testStartTime,
+            OpponentTeam = _testTeamName,
+            Home = _testHome,
+            Address = _testAddress
         };
 
         var events = new List<MatchEvent> { matchEvent };
@@ -46,26 +48,28 @@ public class CalendarServiceTests
         ArgumentNullException.ThrowIfNull(calendarEvent);
 
         calendarEvent.Should().NotBeNull();
-        calendarEvent.Name.Should().Be(testTeam + " (home)");
+        calendarEvent.Summary.Should().Be(_testTeamName + " (Home)");
     }
 
     [Test]
-    public void CalendarService_Creates_Calendar()
+    public void CalendarService_Creates_Events_With_Correct_Date()
     {
         var matchEvent = new MatchEvent
         {
-            YearMonth = "yearMonth",
-            WeekCommencing = 0,
-            DayOfWeek = DayOfWeek.Sunday,
-            StartTime = default,
-            Team = null,
-            Home = false,
-            Postcode = null,
-            Address = null
+            WeekCommencingDate = _testWcDate,
+            DayOfWeek = _testDayOfWeek,
+            StartTime = _testStartTime,
+            OpponentTeam = _testTeamName,
+            Home = _testHome,
+            Address = _testAddress
         };
 
         var events = new List<MatchEvent> { matchEvent };
 
-        //_calendarService.CreateCalendar(events);
+        var calendarEvent = _calendarService.CreateEvents(events).ToList().FirstOrDefault();
+        ArgumentNullException.ThrowIfNull(calendarEvent);
+
+        calendarEvent.Should().NotBeNull();
+        calendarEvent.DtStart.Day.Should().Be(2);
     }
 }

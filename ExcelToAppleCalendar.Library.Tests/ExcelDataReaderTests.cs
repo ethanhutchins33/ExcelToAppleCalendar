@@ -6,7 +6,7 @@ namespace ExcelToAppleCalendar.Library.Tests;
 public class ExcelDataReaderTests
 {
     private ExcelDataReader _excelDataReader;
-    private const string ExcelFilePath = "./DataFiles/TestFile.xlsx";
+    private const string ExcelFilePath = "./TestFiles/TestFile.xlsx";
 
     [SetUp]
     public void Setup()
@@ -15,38 +15,24 @@ public class ExcelDataReaderTests
     }
 
     [Test]
-    public void ExcelDataReader_GetMatchEvents_ReturnsExpectedTeamName()
+    public void ExcelDataReader_GetMatchEvents_ReturnsExpectedWCDate()
     {
         var result = _excelDataReader.GetMatchEvents(ExcelFilePath).First();
-        result.Team.Should().Be("Team Name");
-    }
-
-    [Test]
-    public void ExcelDataReader_GetMatchEvents_ReturnsExpectedWeekCommencing()
-    {
-        var result = _excelDataReader.GetMatchEvents(ExcelFilePath).First();
-        result.WeekCommencing.Should().Be(1);
-    }
-
-    [Test]
-    public void ExcelDataReader_GetMatchEvents_ReturnsExpectedYearMonth()
-    {
-        var result = _excelDataReader.GetMatchEvents(ExcelFilePath).First();
-        result.YearMonth.Should().Be("January");
-    }
-
-    [Test]
-    public void ExcelDataReader_GetMatchEvents_ReturnsExpectedStartTime()
-    {
-        var result = _excelDataReader.GetMatchEvents(ExcelFilePath).First();
-        result.StartTime.Should().Be(new TimeOnly(19, 30, 0));
+        result.WeekCommencingDate.Should().Be(new DateOnly(2024, 9, 30));
     }
 
     [Test]
     public void ExcelDataReader_GetMatchEvents_ReturnsExpectedDayOfWeek()
     {
         var result = _excelDataReader.GetMatchEvents(ExcelFilePath).First();
-        result.DayOfWeek.Should().Be(DayOfWeek.Monday);
+        result.DayOfWeek.Should().Be(DayOfWeek.Wednesday);
+    }
+
+    [Test]
+    public void ExcelDataReader_GetMatchEvents_ReturnsExpectedTeamName()
+    {
+        var result = _excelDataReader.GetMatchEvents(ExcelFilePath).First();
+        result.OpponentTeam.Should().Be("Team Name");
     }
 
     [Test]
@@ -57,9 +43,16 @@ public class ExcelDataReaderTests
     }
 
     [Test]
-    public void ExcelDataReader_GetMatchEvents_ReturnsExpectedPostCode()
+    public void ExcelDataReader_GetMatchEvents_ReturnsExpectedStartTime()
     {
         var result = _excelDataReader.GetMatchEvents(ExcelFilePath).First();
-        result.Postcode.Should().Be("PostCodeValue");
+        result.StartTime.Should().Be(new TimeOnly(19, 30, 0));
+    }
+
+    [Test]
+    public void ExcelDataReader_GetMatchEvents_ReturnsExpectedAddress()
+    {
+        var result = _excelDataReader.GetMatchEvents(ExcelFilePath).First();
+        result.Address.Should().Be("AddressValue");
     }
 }

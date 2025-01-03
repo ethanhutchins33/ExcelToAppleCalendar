@@ -17,10 +17,10 @@ public class CalendarService : ICalendarService
 
             yield return new CalendarEvent
             {
-                Summary = matchEvent.Team + " " + homeOrAway,
+                Summary = matchEvent.OpponentTeam + " " + homeOrAway,
                 DtStart = GetDate(matchEvent),
                 Duration = new TimeSpan(3, 0, 0),
-                Location = matchEvent.Postcode
+                Location = matchEvent.Address
             };
         }
     }
@@ -39,11 +39,7 @@ public class CalendarService : ICalendarService
 
     private CalDateTime GetDate(MatchEvent match)
     {
-        var month = -1;
-        if (match.YearMonth != null) month = GetIntFromMonth(match.YearMonth);
-
-        var year = month < 8 ? 2024 : 2023;
-        var mondayDate = new DateTime(year, month, match.WeekCommencing);
+        var mondayDate = new DateTime(match.WeekCommencingDate.Year, match.WeekCommencingDate.Month, match.WeekCommencingDate.Day);
         var actualDate =
             mondayDate.AddDays(GetDaysToAddFromMonday(match.DayOfWeek.ToString()));
 
@@ -64,26 +60,6 @@ public class CalendarService : ICalendarService
             "Saturday" => 5,
             "Sunday" => 6,
             _ => throw new ArgumentException("Invalid day of the week.")
-        };
-    }
-
-    private int GetIntFromMonth(string month)
-    {
-        return month switch
-        {
-            "January" => 1,
-            "February" => 2,
-            "March" => 3,
-            "April" => 4,
-            "May" => 5,
-            "June" => 6,
-            "July" => 7,
-            "August" => 8,
-            "September" => 9,
-            "October" => 10,
-            "November" => 11,
-            "December" => 12,
-            _ => throw new ArgumentException("Invalid month name.")
         };
     }
 }

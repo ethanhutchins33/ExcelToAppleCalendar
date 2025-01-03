@@ -12,7 +12,10 @@ var host = Host.CreateDefaultBuilder()
         serviceCollection.AddTransient<IExcelDataReader, ExcelDataReader>();
         serviceCollection.AddSingleton<App>();
     })
-    .ConfigureAppConfiguration(app => { app.AddJsonFile("appsettings.json"); })
+    .ConfigureAppConfiguration(configBuilder =>
+    {
+        configBuilder.AddJsonFile("appsettings.json");
+    })
     .Build();
 
 using var scope = host.Services.CreateScope();
