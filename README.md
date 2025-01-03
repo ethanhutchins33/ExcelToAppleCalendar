@@ -1,10 +1,10 @@
 # Excel to Apple Calendar App
 
-This is a C# console application that reads data from an Excel file and generates an iCalendar file containing events from the data. The iCalendar file can be imported into calendar applications such as Google Calendar, Microsoft Outlook, or Apple Calendar.
+This is a C# console application that imports my table tennis match data from an Excel file and generates an iCalendar. The iCalendar file can be imported into calendar applications such as Google Calendar, Microsoft Outlook, or Apple Calendar.
 
 ## Requirements
 
-.NET Core 6.0 or later
+.NET Core 8.0 or later
 
 ## Usage
 
