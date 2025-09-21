@@ -33,7 +33,7 @@ public class CalendarService : ICalendarService
         foreach (var ttEvent in events) calendar.Events.Add(ttEvent);
 
         // Serialize the calendar to an iCalendar file
-        const string filePath = "Yeovil TT Calendar.ics";
+        const string filePath = "TT Calendar.ics";
         File.WriteAllText(filePath, new CalendarSerializer().SerializeToString(calendar));
     }
 
