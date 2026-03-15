@@ -4,14 +4,14 @@ This is a C# console application that imports my table tennis match data from an
 
 ## Requirements
 
-.NET Core 8.0 or later
+.NET 10.0 or later
 
 ## Usage
 
 1. Clone the repository to your local machine.
-1. Open the solution file (ExcelToAppleCalendarApp.sln) in Visual Studio.
+1. Open the solution file (`ExcelToAppleCalendar.sln`) in Visual Studio (or another IDE).
 1. Build the solution to restore the NuGet packages.
-1. Copy the Excel file that you want to convert to the ExcelToAppleCalendarApp directory.
-1. Modify the Program.cs file to specify the name of the Excel file and the name of the iCalendar file.
-1. Run the application.
-1. The iCalendar file will be saved to the ExcelToAppleCalendarApp directory.
+1. Put the Excel file you want to convert in `ExcelToAppleCalendar.App/DataFiles/` (or update the path).
+1. Update `ExcelToAppleCalendar.App/appsettings.json` to set `InputFilePath` and `OutputFilePath`.
+1. Run the application (`dotnet run --project ExcelToAppleCalendar.App`).
+1. The iCalendar file will be saved to the configured `OutputFilePath`.
