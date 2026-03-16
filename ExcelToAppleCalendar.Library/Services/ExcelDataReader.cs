@@ -17,7 +17,7 @@ public class ExcelDataReader : IExcelDataReader
             throw new FileNotFoundException();
         }
 
-        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+        ExcelPackage.License.SetNonCommercialPersonal("ExcelToAppleCalendar");
         using var package = new ExcelPackage(file);
         var worksheet = package.Workbook.Worksheets.First();
 

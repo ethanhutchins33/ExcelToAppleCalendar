@@ -19,7 +19,7 @@ public class CalendarService : ICalendarService
             {
                 Summary = matchEvent.OpponentTeam + " " + homeOrAway,
                 DtStart = GetDate(matchEvent),
-                Duration = new TimeSpan(3, 0, 0),
+                Duration = Duration.FromHours(3),
                 Location = matchEvent.Address
             };
         }
