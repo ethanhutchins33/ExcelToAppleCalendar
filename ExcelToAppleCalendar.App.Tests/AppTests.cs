@@ -1,28 +1,42 @@
 using ExcelToAppleCalendar.Library.Interfaces;
 using FakeItEasy;
+using FluentAssertions;
 using Microsoft.Extensions.Configuration;
 
 namespace ExcelToAppleCalendar.App.Tests;
 
 public class AppTests
 {
-    private App _app;
+    private ICalendarService _calendarService = null!;
+    private IExcelDataReader _excelDataReader = null!;
+    private IConfiguration _configuration = null!;
+    private App _app = null!;
 
     [SetUp]
     public void Setup()
     {
-        var calendarService = A.Fake<ICalendarService>();
-        var excelDataReader = A.Fake<IExcelDataReader>();
-        IAppConfiguration testConfiguration = new TestConfiguration();
-        var configurationSection = A.Fake<IConfigurationSection>();
-        var configuration = A.Fake<IConfiguration>();
+        _calendarService = A.Fake<ICalendarService>();
+        _excelDataReader = A.Fake<IExcelDataReader>();
+        _configuration = A.Fake<IConfiguration>();
+        _app = new App(_calendarService, _excelDataReader, _configuration);
+    }
 
-        A.CallTo(() => configuration.GetSection("AppSettings"))
-            .Returns(configurationSection);
-        A.CallTo(() => configurationSection.Get<IAppConfiguration>())
-            .Returns(testConfiguration);
+    [Test]
+    public void App_Instantiation_WithValidDependencies_Succeeds()
+    {
+        _app.Should().NotBeNull();
+    }
 
-        _app = new App(calendarService, excelDataReader,
-            configuration);
+    [Test]
+    public void App_Can_Be_Created_With_Fakes()
+    {
+        var act = () => new App(_calendarService, _excelDataReader, _configuration);
+        act.Should().NotThrow();
+    }
+
+    [Test]
+    public void App_Is_Correct_Type_After_Instantiation()
+    {
+        _app.Should().BeOfType<App>();
     }
 }

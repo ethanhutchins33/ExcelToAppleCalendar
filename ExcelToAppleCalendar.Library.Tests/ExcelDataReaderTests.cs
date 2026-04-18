@@ -5,7 +5,7 @@ namespace ExcelToAppleCalendar.Library.Tests;
 
 public class ExcelDataReaderTests
 {
-    private ExcelDataReader _excelDataReader;
+    private ExcelDataReader _excelDataReader = null!;
     private const string ExcelFilePath = "./TestFiles/TestFile.xlsx";
 
     [SetUp]
@@ -15,44 +15,47 @@ public class ExcelDataReaderTests
     }
 
     [Test]
-    public void ExcelDataReader_GetMatchEvents_ReturnsExpectedWCDate()
+    public void ExcelDataReader_GetMatchEvents_ThrowsFileNotFoundException_WhenFileDoesNotExist()
+    {
+        var nonExistentFilePath = "./TestFiles/NonExistentFile.xlsx";
+        var action = () => _excelDataReader.GetMatchEvents(nonExistentFilePath).ToList();
+
+        action.Should().Throw<FileNotFoundException>();
+    }
+
+    [Test]
+    public void ExcelDataReader_GetMatchEvents_ReturnsMultipleMatchEvents()
+    {
+        var results = _excelDataReader.GetMatchEvents(ExcelFilePath).ToList();
+
+        results.Should().NotBeEmpty().And.HaveCountGreaterThanOrEqualTo(1);
+    }
+
+    [Test]
+    public void ExcelDataReader_GetMatchEvents_AllResults_HaveNonNullValues()
+    {
+        var results = _excelDataReader.GetMatchEvents(ExcelFilePath).ToList();
+
+        results.Should().AllSatisfy(result =>
+        {
+            result.WeekCommencingDate.Should().NotBe(default);
+            result.DayOfWeek.Should().NotBe(default);
+            result.OpponentTeam.Should().NotBeNullOrEmpty();
+            result.StartTime.Should().NotBe(default);
+            result.Address.Should().NotBeNullOrEmpty();
+        });
+    }
+
+    [Test]
+    public void ExcelDataReader_GetMatchEvents_FirstEvent_HasCorrectValues()
     {
         var result = _excelDataReader.GetMatchEvents(ExcelFilePath).First();
+
         result.WeekCommencingDate.Should().Be(new DateOnly(2024, 9, 30));
-    }
-
-    [Test]
-    public void ExcelDataReader_GetMatchEvents_ReturnsExpectedDayOfWeek()
-    {
-        var result = _excelDataReader.GetMatchEvents(ExcelFilePath).First();
         result.DayOfWeek.Should().Be(DayOfWeek.Wednesday);
-    }
-
-    [Test]
-    public void ExcelDataReader_GetMatchEvents_ReturnsExpectedTeamName()
-    {
-        var result = _excelDataReader.GetMatchEvents(ExcelFilePath).First();
         result.OpponentTeam.Should().Be("Team Name");
-    }
-
-    [Test]
-    public void ExcelDataReader_GetMatchEvents_ReturnsExpectedHomeAway()
-    {
-        var result = _excelDataReader.GetMatchEvents(ExcelFilePath).First();
         result.Home.Should().BeFalse();
-    }
-
-    [Test]
-    public void ExcelDataReader_GetMatchEvents_ReturnsExpectedStartTime()
-    {
-        var result = _excelDataReader.GetMatchEvents(ExcelFilePath).First();
         result.StartTime.Should().Be(new TimeOnly(19, 30, 0));
-    }
-
-    [Test]
-    public void ExcelDataReader_GetMatchEvents_ReturnsExpectedAddress()
-    {
-        var result = _excelDataReader.GetMatchEvents(ExcelFilePath).First();
         result.Address.Should().Be("AddressValue");
     }
 }
