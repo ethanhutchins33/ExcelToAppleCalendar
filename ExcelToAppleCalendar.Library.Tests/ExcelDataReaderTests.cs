@@ -55,4 +55,20 @@ public class ExcelDataReaderTests
         var result = _excelDataReader.GetMatchEvents(ExcelFilePath).First();
         result.Address.Should().Be("AddressValue");
     }
+
+    [Test]
+    public void ExcelDataReader_GetMatchEvents_Throws_FileNotFoundException_When_File_Not_Found()
+    {
+        var act = () => _excelDataReader.GetMatchEvents("nonexistent.xlsx").ToList();
+
+        act.Should().Throw<FileNotFoundException>();
+    }
+
+    [Test]
+    public void ExcelDataReader_GetMatchEvents_Returns_At_Least_One_Row()
+    {
+        var result = _excelDataReader.GetMatchEvents(ExcelFilePath).ToList();
+
+        result.Should().NotBeEmpty();
+    }
 }
